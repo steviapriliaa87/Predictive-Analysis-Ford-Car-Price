@@ -429,6 +429,7 @@ Pada tahap evaluasi, dilakukan serangkaian proses untuk mengukur kinerja model y
 - Visualisasi Perbandingan Performa Model
 
    Setelah mendapatkan nilai MSE dari masing-masing model pada data latih dan uji, hasil tersebut divisualisasikan agar dapat dilihat secara jelas perbandingan performanya. Visualisasi ini membantu dalam memahami model mana yang memberikan kesalahan prediksi paling rendah.
+
    ![image](https://github.com/user-attachments/assets/6407dd83-f9c2-40a9-8c70-2da3f1969641)
 
 

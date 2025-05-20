@@ -117,18 +117,20 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
    Setelah proses pembersihan ini, jumlah data pada dataset **berkurang dari 17.966 menjadi 17.915 baris**, sementara jumlah kolom tetap sebanyak 9.
    
    Langkah ini bertujuan untuk memastikan bahwa data yang digunakan dalam proses analisis maupun pemodelan hanya terdiri dari informasi yang valid dan relevan, khususnya dalam hal ukuran mesin mobil. Dengan begitu, hasil analisis akan menjadi lebih akurat, terpercaya, dan representatif terhadap kondisi nyata.
-  ![image](https://github.com/user-attachments/assets/d25aedd3-4dcb-4560-b018-e022462755b7)
+  ![Missing Value](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/missing%20value.png)
+
 
 - **Memeriksa dan Menangani Outliers**
   
    Pada tahapan ini dilakukan pemeriksaan dan penanganan outliers agar data lebih bersih dan representatif. Pemeriksaan outliers dilakukan dengan visualisasi boxplot dan perhitungan IQR untuk mengidentifikasi nilai-nilai yang ekstrem dan tidak wajar.
   
-     ![image](https://github.com/user-attachments/assets/3f28b818-adcd-4494-9ada-6012f2631b2c)
+     ![Cek Outliers](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/cek_outliers.png)
 
    Boxplot menunjukkan adanya outlier di hampir semua fitur numerik dalam dataset mobil Ford. Outlier paling mencolok terlihat pada kolom mileage (jarak tempuh) dan price (harga mobil), di mana banyak nilai berada jauh di atas batas atas (upper whisker). Kolom year juga menunjukkan beberapa data tahun yang tidak wajar (misalnya tahun 2060), sedangkan engineSize memiliki nilai nol yang tampaknya tidak valid. Kolom tax dan mpg memiliki sedikit outlier, tapi masih dalam batas yang lebih terkendali. Secara keseluruhan, boxplot ini menunjukkan perlunya pembersihan data, terutama pada outlier yang ekstrem dan nilai yang tidak realistis.
 
   Selanjutnya, dilakukan pembersihan outlier menggunakan metode IQR pada seluruh kolom numerik dalam dataset. Proses ini dimulai dengan menghitung kuartil pertama (Q1), kuartil ketiga (Q3), dan rentang interkuartil (IQR). Data yang memiliki nilai di luar batas bawah (Q1 - 1.5 × IQR) dan batas atas (Q3 + 1.5 × IQR) dianggap sebagai outlier dan dihapus dari dataset. Langkah ini efektif dalam mengurangi nilai-nilai ekstrem yang berpotensi mengganggu hasil analisis, sehingga jumlah data tersisa menjadi 16.450 baris dan 9 kolom. Perubahan distribusi data setelah pembersihan dapat dilihat pada boxplot berikut:
-    ![image](https://github.com/user-attachments/assets/e8c1fad8-e7e0-4ccd-b80d-a56e42af70cb)
+    ![After Cleaning Outliers](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/2_after_cleaningoutliers.png)
+
 
   Boxplot menunjukkan bahwa data kini jauh lebih bersih dibanding sebelumnya. Nilai-nilai ekstrem yang sebelumnya mendominasi kolom price, mileage, dan year telah berhasil dikurangi. Distribusi data menjadi lebih seimbang, dan mayoritas nilai berada dalam rentang normal.
   
@@ -141,7 +143,8 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
      
      - **Analisis Fitur Categorical - Model**
     
-       ![image](https://github.com/user-attachments/assets/6c24a75f-2744-40cd-9521-878c7d5016cf)
+       ![Univariate Fitur Model](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/3_univariatefiturmodel.png)
+
 
        Distribusi data pada fitur model menunjukkan dominasi yang kuat oleh dua jenis mobil, yaitu Ford 
        Fiesta dan Ford Focus. Fiesta merupakan model yang paling sering muncul dengan total sekitar 6.200 
@@ -155,7 +158,7 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
        
      - **Analisis fitur categorical - Transmission**
        
-       ![image](https://github.com/user-attachments/assets/a05d51fb-7b11-4058-8886-278057e99524)
+       ![Univariate Fitur Transmission](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/4_univariatefiturtransmission.png)
 
        Fitur *transmission* memperlihatkan ketimpangan yang mencolok: mobil bertransmisi manual mencapai 14 
        305 sampel, sedangkan transmisi automatic dan semi-auto hanya 1.149 dan 996 sampel. Artinya, lebih 
@@ -164,7 +167,7 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
 
      - **Analisis fitur categorical - Fuel Type**
        
-       ![image](https://github.com/user-attachments/assets/88906891-2e96-4a23-94ab-606d643a40c6)
+       ![Univariate Fitur Fuel Type](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/5_univariatefiturfuelType.png)
 
        Distribusi pada fitur *fuelType* menunjukkan fokus pasar yang masih sangat konvensional. Mobil 
        bensin mendominasi dengan jumlah 11 500 sampel, diikuti diesel dengan 4962 sampel. Kategori lain 
@@ -174,7 +177,8 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
        
    - **Numerical Features**
      
-     ![image](https://github.com/user-attachments/assets/634c4efa-32be-447d-9489-eed7c466e517)
+     ![Univariate Fitur Numerical](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/6_univariatefiturnumerical.png)
+
 
      Distribusi fitur numerikal pada Ford Car Dataset menunjukkan bahwa sebagian besar mobil merupakan keluaran tahun 2017 
      hingga 2019. Harga mobil cenderung berkonsentrasi pada kisaran 7.500 hingga 15.000. Untuk fitur jarak tempuh 
@@ -191,9 +195,9 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
   
    - Categorical Features
      
-     ![image](https://github.com/user-attachments/assets/8629d4c6-3a7e-49e7-96e5-43b0b005e4bd)
+     ![Multivariate All Category](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/7_multivariateallcategory.png)
 
-     Analisis multivariat terhadap rata-rata harga berdasarkan model mobil menunjukkan adanya variasi harga yang cukup 
+    -  Analisis multivariat terhadap rata-rata harga berdasarkan model mobil menunjukkan adanya variasi harga yang cukup 
      signifikan antar model. Model Puma, Edge, dan S-MAX memiliki rata-rata harga tertinggi dibandingkan model lainnya, 
      yang menunjukkan bahwa mobil-mobil ini mungkin termasuk dalam kategori mobil keluarga besar atau SUV dengan fitur 
      lebih lengkap. Sebaliknya, model seperti KA, B-MAX, dan Ka+ memiliki rata-rata harga yang paling rendah, menandakan 
@@ -201,7 +205,7 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
      dan Mondeo memiliki harga rata-rata di tingkat menengah, menunjukkan keseimbangan antara fitur dan harga. Perbedaan 
      ini mencerminkan segmentasi pasar dari masing-masing model Ford, mulai dari mobil ekonomis hingga premium.
 
-     ![image](https://github.com/user-attachments/assets/2c4fe8f4-1e67-4c55-9485-865e2c48018f)
+     ![Multivariate All Category 2](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/7_multivariateallcategory2.png)
 
      Grafik menunjukkan bahwa mobil dengan transmisi Automatic memiliki harga rata-rata tertinggi, disusul oleh transmisi 
      Semi-Auto, dan terakhir Manual. Perbedaan ini mencerminkan tren pasar di mana mobil dengan transmisi otomatis 
@@ -210,7 +214,8 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
      Rentang kesalahan (error bar) yang kecil pada ketiga kelompok menunjukkan bahwa rata-rata ini cukup representatif 
      terhadap sebaran data.
      
-     ![image](https://github.com/user-attachments/assets/38cfad01-f1f4-4e6b-9c13-a94ff38dacd2)
+     ![Multivariate All Category 3](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/7_multivariateallcategory3.png)
+
      
      Grafik menunjukkan bahwa mobil dengan jenis bahan bakar Hybrid memiliki rata-rata harga tertinggi dibandingkan jenis 
      lainnya. Namun, nilai error bar yang besar menunjukkan adanya variasi harga yang signifikan dalam kelompok ini. Mobil 
@@ -222,7 +227,8 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
 
    - Numerical Features
      - Memeriksa Korelasi antara Fitur Numerik dengan Fitur Target menggunakan Fungsi corr()
-       ![image](https://github.com/user-attachments/assets/d1a3e5e4-2abf-462d-8c09-13e5546ce714)
+       ![Multivariate Pairplot](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/8_multivariatepairplot.png)
+
 
        Pairplot digunakan untuk mengeksplorasi hubungan antar fitur numerik dengan cara memvisualisasikan scatter plot 
        untuk setiap pasangan fitur, serta distribusi dari masing-masing fitur di diagonal.
@@ -261,7 +267,8 @@ Dari tabel di atas, dapat diketahui bahwa terdapat **6 data numerik** yakni: `ye
 
       
       - Memeriksa Kolerasi Fitur Numerik Menggunakan Heatmap
-        ![image](https://github.com/user-attachments/assets/3b9187a8-8b0d-44c9-a561-0edcd6169b50)
+        ![Multivariate Heatmap](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/9_multivariateheatmap.png)
+
          Heatmap digunakan untuk menunjukkan **hubungan linear antar fitur numerik** dalam bentuk **koefisien korelasi Pearson**:
 
 
@@ -293,6 +300,8 @@ Tahapan data preparation ini sangat penting untuk memastikan kualitas input data
    Fitur kategorikal seperti `fuelType`, `transmission`, dan `model` tidak bisa langsung digunakan oleh algoritma ML, sehingga dilakukan encoding. Berikut merupakan hasil encoding
 
 - **Reduksi Dimensi dengan PCA (Principal Component Analysis)**
+
+  ![Reduksi PCA](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/10_reduksipca.png)
 
    Principal Component Analysis (PCA) merupakan metode yang digunakan untuk mengurangi jumlah fitur dalam data, sambil tetap mempertahankan informasi penting di dalamnya. Dalam proses ini, data ditransformasikan dari ruang berdimensi n ke ruang berdimensi baru yang lebih rendah (m), di mana nilai m lebih kecil dari n. Tujuan utamanya adalah untuk menyederhanakan kompleksitas data, mengekstrak fitur utama, serta merepresentasikan data dalam sistem koordinat baru yang lebih ringkas namun tetap informatif. Hasil proporsi informasi dari fitur engineSize dan Tax dengan menggunakan Principal Component Analysis (PCA), yaitu
    `array([1., 0.])`
@@ -430,8 +439,7 @@ Pada tahap evaluasi, dilakukan serangkaian proses untuk mengukur kinerja model y
 
    Setelah mendapatkan nilai MSE dari masing-masing model pada data latih dan uji, hasil tersebut divisualisasikan agar dapat dilihat secara jelas perbandingan performanya. Visualisasi ini membantu dalam memahami model mana yang memberikan kesalahan prediksi paling rendah.
 
-   ![image](https://github.com/user-attachments/assets/6407dd83-f9c2-40a9-8c70-2da3f1969641)
-
+  ![Hasil Diagram Performa](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/11_hasildiagramperforma.png)
 
 - Mengevaluasi Akurasi Model
 

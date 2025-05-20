@@ -432,8 +432,64 @@ Pada tahap evaluasi, dilakukan serangkaian proses untuk mengukur kinerja model y
 - Mengukur Nilai Error Menggunakan MSE
 
    Sebelum melakukan evaluasi, terlebih dahulu dilakukan transformasi fitur numerik pada data uji menggunakan **scaler** yang sebelumnya telah di-*fit* pada data latih. Hal ini bertujuan untuk menyamakan skala antara data latih dan data uji.
-   
-   Selanjutnya, dilakukan perhitungan **Mean Squared Error (MSE)** terhadap data latih dan data uji untuk masing-masing model yang digunakan, yaitu K-Nearest Neighbor (KNN), Random Forest (RF), dan Boosting. Nilai MSE digunakan untuk mengetahui seberapa besar kesalahan prediksi model terhadap nilai sebenarnya. Nilai MSE dibagi 1000 untuk mempermudah interpretasi dalam skala yang lebih kecil, dan hasilnya disimpan dalam bentuk **DataFrame**.
+
+```python
+x_test.loc[:, numerical] = scaler.transform(x_test[numerical])
+```
+
+Selanjutnya, dilakukan perhitungan **Mean Squared Error (MSE)** terhadap data latih dan data uji untuk masing-masing model yang digunakan, yaitu **K-Nearest Neighbor (KNN)**, **Random Forest (RF)**, dan **Boosting**.
+
+**Mean Squared Error (MSE)** adalah metrik yang digunakan untuk mengukur rata-rata dari kuadrat selisih antara nilai prediksi dan nilai aktual. MSE memberikan penalti yang lebih besar terhadap kesalahan prediksi yang jauh dari nilai sebenarnya karena selisihnya dikuadratkan.
+
+Rumus matematis MSE adalah:
+
+$$
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+$$
+
+Di mana:
+
+* $y_i$ adalah nilai aktual,
+* $\hat{y}_i$ adalah nilai prediksi,
+* $n$ adalah jumlah data.
+
+Berikut kode yang digunakan untuk menghitung MSE pada data latih dan uji:
+```python
+# Membuat DataFrame untuk menyimpan nilai MSE (Mean Squared Error) pada data train dan test
+MSE = pd.DataFrame(columns=['train', 'test'], index=['KNN', 'RF', 'Boosting'])
+
+# Kamus model untuk memudahkan iterasi
+model_dict = {
+    'KNN': KNN_model,
+    'RF': RF_model,
+    'Boosting': BA_model
+}
+
+# Looping setiap model untuk hitung MSE pada data train dan test, hasil dibagi 1000 agar lebih mudah dibaca
+for name, model in model_dict.items():
+    MSE.loc[name, 'train'] = mean_squared_error(
+        y_true=y_train,
+        y_pred=model.predict(x_train)
+    ) / 1e3  # Membagi dengan 1000 supaya skala lebih kecil
+
+    MSE.loc[name, 'test'] = mean_squared_error(
+        y_true=y_test,
+        y_pred=model.predict(x_test)
+    ) / 1e3
+
+# Tampilkan DataFrame hasil evaluasi
+MSE
+```
+
+Hasil :
+| Model     | Train MSE     | Test MSE      |
+|-----------|---------------|---------------|
+| KNN       | 1703.965101   | 1887.413145   |
+| RF        | 1435.290875   | 1628.640940   |
+| Boosting  | 6429.722004   | 6579.248243   |
+
+Dari hasil yang ditampilkan, model Random Forest memiliki nilai MSE terkecil di data latih dan data uji dibandingkan KNN dan Boosting. Ini berarti Random Forest memberikan prediksi yang paling akurat karena kesalahan prediksinya lebih kecil. KNN juga cukup baik, tapi MSE-nya sedikit lebih besar. Sedangkan Boosting menunjukkan nilai MSE yang jauh lebih besar, artinya performanya kurang bagus dan model ini kurang cocok untuk data ini. Jadi, Random Forest adalah model terbaik berdasarkan hasil ini.
+
 
 - Visualisasi Perbandingan Performa Model
 
@@ -441,19 +497,22 @@ Pada tahap evaluasi, dilakukan serangkaian proses untuk mengukur kinerja model y
 
   ![Hasil Diagram Performa](https://raw.githubusercontent.com/steviapriliaa87/Predictive-Analysis-Ford-Car-Price/main/image/11_hasildiagramperforma.png)
 
-- Mengevaluasi Akurasi Model
+  Dari gambar di atas, terlihat bahwa, model RF memberikan nilai eror yang paling kecil. Model inilah yang dapat digunakan sebagai model terbaik untuk melakukan prediksi harga mobil Ford.
 
-   Selain menggunakan MSE, evaluasi performa model juga dilakukan dengan mengukur **akurasi** menggunakan fungsi `.score()` dari masing-masing model terhadap data uji. Nilai akurasi dikalikan 100 untuk mengubahnya ke dalam bentuk persentase. Hasil akurasi ini kemudian dikompilasi ke dalam sebuah **DataFrame** evaluasi, sehingga dapat dibandingkan secara langsung.
+- Mengevaluasi Akurasi Model
+  
+  Pada tahap ini, dilakukan evaluasi akurasi ketiga model menggunakan data uji untuk mengetahui seberapa tepat model dalam memprediksi nilai sebenarnya. Akurasi ini menunjukkan persentase prediksi yang benar dibandingkan total data uji.
+
+   Berikut adalah hasil akurasi dari ketiga model:
+      
+      | Model              | Accuracy (%) |
+      | ------------------ | ------------ |
+      | K-Nearest Neighbor | 88.09        |
+      | Random Forest      | 89.73        |
+      | Boosting Algorithm | 58.50        |
+
+   Dari hasil tersebut, model Random Forest memiliki akurasi tertinggi, diikuti oleh K-Nearest Neighbor. Sementara itu, Boosting Algorithm memiliki akurasi yang jauh lebih rendah, yang mengindikasikan performa model ini kurang optimal pada data yang digunakan.
    
-   Berikut hasil akurasi dari ketiga model:
-   
-   | Model              | Accuracy (%) |
-   | ------------------ | ------------ |
-   | K-Nearest Neighbor | 88.09        |
-   | Random Forest      | 89.73        |
-   | Boosting Algorithm | 58.50        |
-   
-   Dari hasil tersebut, dapat disimpulkan bahwa model **Random Forest** memberikan akurasi prediksi terbaik pada data uji.
 
 - Melakukan Prediksi dengan Model
 
